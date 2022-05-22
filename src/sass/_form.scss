@@ -1,0 +1,11 @@
+.search-form{
+    border: 1px solid green;
+    height: 55px;
+    text-align: center;
+    padding-top: 15px;
+    background-color: rgb(81, 81, 228);
+    & button, & input{
+        border-radius: 2px;
+        border-style: none;
+    }
+}
