@@ -1,11 +1,32 @@
+body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+
+}
+
 .search-form{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
     border: 1px solid green;
     height: 55px;
-    text-align: center;
     padding-top: 15px;
     background-color: rgb(81, 81, 228);
     & button, & input{
         border-radius: 2px;
         border-style: none;
     }
+}
+input{
+    height: 20px;
+    width: 200px;
+    font: inherit;
+    background-color: rgb(255, 255, 255);
+    margin-right: 20px;
+    border: none;
+}
+button{
+    height: 20px;
+    background-color: #ccc;
 }
