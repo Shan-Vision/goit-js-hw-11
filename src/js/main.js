@@ -24,7 +24,6 @@ function cardMarkup(images) {
 
   refs.gallery.insertAdjacentHTML('beforeend', imagesMarkup);
   lightBox.refresh();
-  refs.loadMoreBtn.classList.remove('is-hidden');
 }
 
 async function onFormSubmit(e) {
@@ -54,7 +53,16 @@ function showInfo(totalHits) {
   return Notify.info(`Hooray! We found ${totalHits}images.`);
 }
 
+let observe = new IntersectionObserver(onEntry, {
+  rootMargin: '300px',
+});
 
-
+function onEntry(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && service.query !== '') {
+      service.requestImages().then(cardMarkup);
+    }
+  });
+}
+observe.observe(refs.scrollMore);
 refs.form.addEventListener('submit', onFormSubmit);
-
