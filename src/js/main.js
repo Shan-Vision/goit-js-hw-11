@@ -36,8 +36,13 @@ async function onFormSubmit(e) {
   try {
     const result = await service.requestImages();
 
-    if (result.hits.length === 0 || service.query === '') {
-      throw new Error('Sorry, there are no images matching yout search query. Please try again');
+    if (result.totalHits === 0 || service.query === '') {
+      Notify.failure('Sorry, there are no images matching yout search query. Please try again');
+      return;
+    }
+    if (result.hits.length === 0 && result.totalHits !== 0) {
+      Notify.warning(`We're sorry, but you've reached the end of search results.`);
+      return;
     }
 
     showInfo(result.totalHits);
@@ -60,7 +65,11 @@ let observe = new IntersectionObserver(onEntry, {
 function onEntry(entries) {
   entries.forEach(entry => {
     if (entry.isIntersecting && service.query !== '') {
-      service.requestImages().then(cardMarkup);
+      service.requestImages().then(data => {
+        console.log(data);
+        cardMarkup(data);
+
+      });
     }
   });
 }
